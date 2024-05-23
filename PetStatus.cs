@@ -35,12 +35,21 @@ namespace VirtualPetStatusTracker
              } */
             if (strHunger.Contains("-"))
             {
-                Console.WriteLine($"{Name} has been fed fully. Hunger decreased and the health is increased.");
+                Hunger = 1;
+                Console.WriteLine($"{Name} has been fed fully and cannot be fed anymore further. Please try the other options in the application. Try play or rest your pet. \n Hunger decreased to {Hunger} and the health is increased to {Health}.");
             }
             else
             {
-                Health += 1;
-                Console.WriteLine($"{Name} has been fed. Hunger decreased to {Hunger} and the health is increased to {Health}.");
+                if (Health > 10)
+                {
+                    Console.WriteLine($"{Name} has been fed. Hunger decreased to {Hunger} and the health is increased to {Health}.");
+                }
+                else
+                {
+                    Health += 1;
+                    Console.WriteLine($"{Name} has been fed. Hunger decreased to {Hunger} and the health is increased to {Health}.");
+                }
+                
 
             }
 
@@ -50,37 +59,39 @@ namespace VirtualPetStatusTracker
         public void Play()
         {
             Happiness += 2;
-
-            /* if (Happiness > 10)
-             {
-                 Happiness = 10; 
-             }*/
-
-
             Hunger += 1;
-            if (Hunger > 10)
+
+            if ((Happiness > 10) ||  (Hunger > 10))
             {
-                Hunger = 10;
+                 Happiness = 10;
+                 Hunger = 10;
+                 Console.WriteLine($"{Name} is exhausted from playing and cannot play any futher. Please try the other options in the application. Try feed or rest your pet. \n Happiness increased to {Happiness} and hunger to {Hunger}.");
+            }
+            else
+            {
+                Console.WriteLine($"{Name} is excited after playing. Happiness increased to {Happiness} which slightly increased in hunger to {Hunger}.");
             }
 
-            Console.WriteLine($"{Name} is excited after playing. Happiness increased which slightly increased in hunger.");
+            
         }
 
         public void Rest()
         {
             Health += 2;
-            if (Health > 10)
+            Happiness -= 1;
+
+            if ((Health > 10) || (Happiness > 10))
             {
                 Health = 10;
+                Happiness = 10;
+                Console.WriteLine($"{Name} is fully rested. Please try the other options in the application. Try feed or play with your pet. \n  Health is {Health} and happiness is {Happiness}.");
             }
-
-            Happiness -= 1;
-            if (Happiness < 0)
+            else
             {
-                Happiness = 1;
+                Console.WriteLine($"{Name} rested. Health improved to {Health} but decrease in happiness slightly to {Happiness}.");
             }
 
-            Console.WriteLine($"{Name} rested. Health improved but decrease in happiness slightly.");
+            
         }
 
 
