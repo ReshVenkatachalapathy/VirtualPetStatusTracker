@@ -1,11 +1,14 @@
-﻿using System;
+﻿/* Developer: Reshma Venkatachalapathy
+ * Date:27-05-2024
+ * Description: This task is used for calculating the hunger, happiness and health using the feed,play, and rest methods*/
+
+
+using System;
+using System.Threading;
 using System.Xml.Linq;
 namespace VirtualPetStatusTracker
 {
-    // internal class PetStatus
-    // {
-
-
+ 
     public class PetStatus
     {
 
@@ -15,7 +18,10 @@ namespace VirtualPetStatusTracker
         public int Happiness { get; set; }
         public int Health { get; set; }
 
+        private Timer timer;
 
+
+        // Passing the pet details and initializing the hunger, happiness and health
         public PetStatus(string petName, string petType)
         {
             Name = petName;
@@ -23,8 +29,28 @@ namespace VirtualPetStatusTracker
             Hunger = 5;
             Happiness = 5;
             Health = 5;
+
+            // Initialize the timer to calculate the timing 
+            timer = new Timer(PassTime, this, TimeSpan.Zero, TimeSpan.FromHours(1));
+        
+    }
+
+        // Method to invoke the timer to increase the happiness and hunger as the time pass by
+        private void PassTime(object state)
+        {
+            if (state is PetStatus pet)
+            {
+                // Increase hunger over time
+                pet.Hunger += 1;
+
+                // Decrease happiness slightly over time
+                pet.Happiness -= 1;
+
+                Console.WriteLine($"One hour has passed. {pet.Name} got hungrier and slightly less happy.");
+            }
         }
 
+        // This method will be used for feeding the pet which will increase the health and decrease the hunger
         public void Feed()
         {
             Hunger -= 2;
@@ -56,6 +82,7 @@ namespace VirtualPetStatusTracker
 
         }
 
+        // This method will be used for playing the pet which will increase the happiness and increase the hunger
         public void Play()
         {
             Happiness += 2;
@@ -75,6 +102,7 @@ namespace VirtualPetStatusTracker
             
         }
 
+        // This method will be used for resting the pet which will increase the health and decrease the hunger
         public void Rest()
         {
             Health += 2;
@@ -91,10 +119,10 @@ namespace VirtualPetStatusTracker
                 Console.WriteLine($"{Name} rested. Health improved to {Health} but decrease in happiness slightly to {Happiness}.");
             }
 
-            
+
         }
 
-
+        // This method will be used for displaying all the status of the pet like happiness, health, and hunger
         public void CheckStatus()
         {
             Console.WriteLine($"Please find the status of {Name} ({Type}) below: ");
