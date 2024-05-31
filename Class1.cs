@@ -19,19 +19,41 @@ namespace VirtualPetStatusTracker
         {
             //Initializing the pet related variables
             String[] petTypes = { "Dog", "Cat", "Rabbit" };
-            String petType;
+            String petType, inputPetType, petName;
             int getPetType;
+            int input;
 
-            //Get the pet details from the user and display the details
-            Console.WriteLine("Please choose a type of pet (Input the respective number): \n 1. Dog \n 2. Cat \n 3. Rabbit");
-            String inputPetType = Console.ReadLine();
-            Console.WriteLine("User input: " + inputPetType);
+            while (true)
+            {
+                //Get the pet details from the user and display the details
+                Console.WriteLine("Please choose a type of pet (Input the respective number): \n 1. Dog \n 2. Cat \n 3. Rabbit");
+                inputPetType = Console.ReadLine();
+                Console.WriteLine("User input: " + inputPetType);
+
+                if (!int.TryParse(inputPetType, out input))
+                {
+                    Console.WriteLine("Please input a number");
+                    continue;
+                }
+                break;
+            }
             getPetType = (Convert.ToInt32(inputPetType)) - 1;
             petType = petTypes[getPetType];
-            Console.WriteLine("You have chosen " + petType + ". What would you like to name your pet?");
-            String petName = Console.ReadLine();
-            Console.WriteLine("User input: " + petName);
-            Console.WriteLine("Welcome " + petName + "!" + " Let's take good care of your " + petType.ToLower() + ".");
+
+            while (true)
+            {
+                Console.WriteLine("You have chosen " + petType + ". What would you like to name your pet?");
+                petName = Console.ReadLine();
+                    if (string.IsNullOrEmpty(petName))
+                    {
+                        Console.WriteLine("Please give a name to your pet. It cannot be empty");
+                        continue;
+                    }
+                    break;
+                Console.WriteLine("User input: " + petName);
+                Console.WriteLine("Welcome " + petName + "!" + " Let's take good care of your " + petType.ToLower() + ".");
+            
+            }
 
             // Get thee user option and call the respective methods
             PetStatus pet = new PetStatus(petName, petType);
@@ -41,6 +63,13 @@ namespace VirtualPetStatusTracker
                 Console.WriteLine("Main Menu: \n 1. Feed " + petName + " \n 2. Play With " + petName + " \n 3. Let " + petName + " Rest \n 4. Check " + petName + "'s Status \n 5. Exit  ");
                 String userResponse = Console.ReadLine();
                 Console.WriteLine("User Input is " + userResponse);
+
+                int choice;
+                if(!int.TryParse(userResponse, out choice))
+                    {
+                        Console.WriteLine("Please insert a valid integer value");
+                        continue;
+                    }
 
                 switch (Convert.ToInt32(userResponse))
                 {
