@@ -23,6 +23,8 @@ namespace VirtualPetStatusTracker
             int getPetType;
             int input;
 
+
+            // Error handling to check if valid input given by the user
             while (true)
             {
                 //Get the pet details from the user and display the details
