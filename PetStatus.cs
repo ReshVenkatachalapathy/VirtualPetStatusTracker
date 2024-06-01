@@ -32,6 +32,7 @@ namespace VirtualPetStatusTracker
 
             // Initialize the timer to calculate the timing 
             timer = new Timer(PassTime, this, TimeSpan.Zero, TimeSpan.FromHours(1));
+
         
     }
 
